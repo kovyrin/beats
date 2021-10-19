@@ -516,11 +516,14 @@ metricbeat.modules:
 #-------------------------- Enterprise Search Module --------------------------
 - module: enterprisesearch
   metricsets: ["health", "stats"]
-  enabled: true
   period: 10s
   hosts: ["http://localhost:3002"]
   username: elastic
   password: changeme
+
+  # Set to true to send data collected by module to X-Pack
+  # Monitoring instead of metricbeat-* indices.
+  #xpack.enabled: false
 
 #------------------------------ Envoyproxy Module ------------------------------
 - module: envoyproxy

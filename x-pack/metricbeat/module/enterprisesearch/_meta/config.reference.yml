@@ -1,9 +1,10 @@
-# Module: enterprisesearch
-# Docs: https://www.elastic.co/guide/en/beats/metricbeat/master/metricbeat-module-enterprisesearch.html
-
 - module: enterprisesearch
   metricsets: ["health", "stats"]
   period: 10s
   hosts: ["http://localhost:3002"]
   username: elastic
   password: changeme
+
+  # Set to true to send data collected by module to X-Pack
+  # Monitoring instead of metricbeat-* indices.
+  #xpack.enabled: false

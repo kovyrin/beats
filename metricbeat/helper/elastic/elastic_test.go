@@ -55,6 +55,11 @@ func TestMakeXPackMonitoringIndexName(t *testing.T) {
 			Beats,
 			".monitoring-beats-7-mb",
 		},
+		{
+			"Enterprise Search monitoring index",
+			EnterpriseSearch,
+			".monitoring-ent-search-7-mb",
+		},
 	}
 
 	for _, test := range tests {

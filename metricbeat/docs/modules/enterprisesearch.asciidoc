@@ -20,6 +20,18 @@ The module has been tested with Enterprise Search versions 7.16.0 and higher. Ve
 === Usage
 The Enterprise Search module requires a set of credentials (a username and a password) for an Elasticserch user for a user that has a `monitor` https://www.elastic.co/guide/en/elasticsearch/reference/current/security-privileges.html#privileges-list-cluster[cluster privilege].
 
+[float]
+=== Usage for {stack} Monitoring
+
+The `enterprisesearch` module can be used to collect metrics shown in our {stack-monitor-app}
+UI in {kib}. To enable this usage, set `xpack.enabled: true` and remove any `metricsets`
+from the module's configuration. Alternatively, run `metricbeat modules disable enterprisesearch` and `metricbeat modules enable enterprisesearch-xpack`.
+
+NOTE: When this module is used for {stack} Monitoring, it sends metrics to the
+monitoring index instead of the default index typically used by {metricbeat}.
+For more details about the monitoring index, see
+{ref}/config-monitoring-indices.html[Configuring indices for monitoring].
+
 
 [float]
 === Example configuration
@@ -32,11 +44,14 @@ in <<configuration-metricbeat>>. Here is an example configuration:
 metricbeat.modules:
 - module: enterprisesearch
   metricsets: ["health", "stats"]
-  enabled: true
   period: 10s
   hosts: ["http://localhost:3002"]
   username: elastic
   password: changeme
+
+  # Set to true to send data collected by module to X-Pack
+  # Monitoring instead of metricbeat-* indices.
+  #xpack.enabled: false
 ----
 
 This module supports TLS connections when using `ssl` config field, as described in <<configuration-ssl>>.
